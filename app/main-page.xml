@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="For Women Safety" class="action-bar">
+        <NavigationButton visibility="collapsed"/>
+        <Image src="~/images/logo.png" width="40" height="40" verticalAlignment="center"/>
+    </ActionBar>
+    
+    <GridLayout rows="auto, *, auto">
+        <!-- SOS Button -->
+        <Button row="0" text="SOS" tap="{{ onSOSTap }}" class="sos-button"/>
+        
+        <!-- Main Content -->
+        <ScrollView row="1">
+            <StackLayout class="main-content">
+                <!-- Location Tracking -->
+                <Button text="Start Location Tracking" tap="{{ startTracking }}" class="primary-button"/>
+                
+                <!-- Emergency Contacts -->
+                <Label text="Emergency Contacts" class="section-header"/>
+                <ListView items="{{ emergencyContacts }}">
+                    <ListView.itemTemplate>
+                        <GridLayout columns="*, auto, auto" class="contact-item">
+                            <Label col="0" text="{{ name }}" class="contact-name"/>
+                            <Button col="1" text="Call" tap="{{ $parent.onCallContact }}" class="action-button"/>
+                            <Button col="2" text="SMS" tap="{{ $parent.onSMSContact }}" class="action-button"/>
+                        </GridLayout>
+                    </ListView.itemTemplate>
+                </ListView>
+                
+                <!-- Healthcare Section -->
+                <Label text="Healthcare" class="section-header"/>
+                <ListView items="{{ healthcareServices }}">
+                    <ListView.itemTemplate>
+                        <StackLayout class="healthcare-item">
+                            <Label text="{{ name }}" class="healthcare-name"/>
+                            <Label text="{{ address }}" class="healthcare-address"/>
+                            <Button text="Navigate" tap="{{ $parent.onNavigateToHealthcare }}" class="secondary-button"/>
+                        </StackLayout>
+                    </ListView.itemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+        
+        <!-- Status Bar -->
+        <GridLayout row="2" columns="auto, *" class="status-bar">
+            <Label col="0" text="{{ statusMessage }}" class="status-message"/>
+            <Label col="1" text="{{ locationStatus }}" class="location-status"/>
+        </GridLayout>
+    </GridLayout>
+</Page>
